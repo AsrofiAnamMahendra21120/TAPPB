@@ -1,3 +1,4 @@
+// app\components\BookCard.tsx
 'use client';
 import Link from 'next/link';
 import { Star } from 'lucide-react';
