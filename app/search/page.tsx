@@ -44,7 +44,8 @@ export default function SearchPage() {
       <input
         type="text"
         placeholder="Cari Judul, Pengarang, atau Penerbit..."
-        className="w-full p-3 border border-gray-200 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 outline-none mb-6 text-black"
+        // SAYA UBAH DI SINI: text-black -> text-gray-900
+        className="w-full p-3 border border-gray-200 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 outline-none mb-6 text-gray-900"
         value={query}
         onChange={(e) => {
           setQuery(e.target.value);
@@ -71,7 +72,7 @@ export default function SearchPage() {
           {!loading && books.length === 0 && (
             <div className="text-center mt-20 opacity-50">
                <p className="text-4xl mb-2">🔍</p>
-               <p>Tidak ditemukan buku.</p>
+               <p className="text-gray-500">Tidak ditemukan buku.</p>
             </div>
           )}
         </>

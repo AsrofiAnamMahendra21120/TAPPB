@@ -8,7 +8,6 @@ export default function TambahBukuPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   
-  // State untuk menyimpan input user
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -16,17 +15,16 @@ export default function TambahBukuPage() {
     category: 'Umum',
     rating: '',
     image_url: '',
+    read_url: '',
     description: '',
   });
 
-  // Fungsi saat mengetik di form
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Fungsi saat tombol Simpan ditekan
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // Mencegah reload halaman
+    e.preventDefault();
     setLoading(true);
 
     try {
@@ -38,15 +36,13 @@ export default function TambahBukuPage() {
 
       if (res.ok) {
         alert('Buku berhasil ditambahkan!');
-        router.push('/'); // Pindah ke Beranda
-        router.refresh(); // Refresh agar data baru muncul
+        router.push('/');
+        router.refresh();
       } else {
-        const err = await res.json();
-        alert('Gagal: ' + err.error);
+        alert('Gagal menambah buku.');
       }
     } catch (error) {
-      console.error(error);
-      alert('Terjadi kesalahan sistem.');
+      alert('Terjadi kesalahan.');
     } finally {
       setLoading(false);
     }
@@ -54,118 +50,132 @@ export default function TambahBukuPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-24">
-      {/* Header Sticky */}
+      {/* Header */}
       <div className="bg-blue-600 p-4 text-white flex items-center gap-3 shadow-md sticky top-0 z-10">
-        <button onClick={() => router.back()} aria-label="Kembali">
+        <button onClick={() => router.back()} aria-label="Kembali ke halaman sebelumnya">
           <ArrowLeft size={24} />
         </button>
         <h1 className="text-lg font-bold">Tambah Buku Baru</h1>
       </div>
 
-      {/* Form Container */}
       <form onSubmit={handleSubmit} className="p-5 space-y-4">
         
-        {/* Judul */}
+        {/* Judul Buku */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Judul Buku *</label>
+          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">Judul Buku *</label>
           <input 
+            id="title"
             required 
             name="title" 
-            type="text" 
             onChange={handleChange} 
-            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-800" 
-            placeholder="Contoh: Laskar Pelangi" 
+            // Tambahkan text-gray-900
+            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900" 
           />
         </div>
 
-        {/* Grid 2 Kolom: Penulis & Penerbit */}
+        {/* Penulis & Penerbit */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Penulis *</label>
+            <label htmlFor="author" className="block text-sm font-medium text-gray-700 mb-1">Penulis *</label>
             <input 
+              id="author"
               required 
               name="author" 
-              type="text" 
               onChange={handleChange} 
-              className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-800" 
-              placeholder="Nama Penulis" 
+              // Tambahkan text-gray-900
+              className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900" 
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Penerbit</label>
+            <label htmlFor="publisher" className="block text-sm font-medium text-gray-700 mb-1">Penerbit</label>
             <input 
+              id="publisher"
               name="publisher" 
-              type="text" 
               onChange={handleChange} 
-              className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-800" 
-              placeholder="Nama Penerbit" 
+              // Tambahkan text-gray-900
+              className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900" 
             />
           </div>
         </div>
 
-        {/* Grid 2 Kolom: Kategori & Rating */}
+        {/* Kategori & Rating */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
-              <select 
-                id="category"
-                name="category" 
-                aria-label="Kategori"
-                onChange={handleChange} 
-                className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-800"
-              >
-                <option value="Umum">Umum</option>
-                <option value="Fiksi">Fiksi</option>
-                <option value="Non-Fiksi">Non-Fiksi</option>
-                <option value="Bisnis">Bisnis</option>
-                <option value="Teknologi">Teknologi</option>
-                <option value="Anak-anak">Anak-anak</option>
-              </select>
-            </div>
+            <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
+            <select 
+              id="category"
+              name="category" 
+              onChange={handleChange} 
+              // Tambahkan text-gray-900
+              className="w-full p-3 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+            >
+              <option value="Umum">Umum</option>
+              <option value="Fiksi">Fiksi</option>
+              <option value="Non-Fiksi">Non-Fiksi</option>
+              <option value="Bisnis">Bisnis</option>
+              <option value="Teknologi">Teknologi</option>
+              <option value="Anak-anak">Anak-anak</option>
+            </select>
+          </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Rating (0-5)</label>
+            <label htmlFor="rating" className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
             <input 
+              id="rating"
               name="rating" 
               type="number" 
               step="0.1" 
               max="5" 
-              min="0" 
               onChange={handleChange} 
-              className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-800" 
-              placeholder="4.5" 
+              // Tambahkan text-gray-900
+              className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900" 
             />
           </div>
         </div>
 
-        {/* URL Gambar */}
+        {/* Link Baca (PDF) */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Link Gambar Cover (URL)</label>
+          <label htmlFor="read_url" className="block text-sm font-medium text-gray-700 mb-1">Link Baca (PDF/Drive)</label>
           <input 
-            name="image_url" 
+            id="read_url"
+            name="read_url" 
             type="url" 
             onChange={handleChange} 
-            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-800" 
-            placeholder="https://images.unsplash.com/..." 
+            // Tambahkan text-gray-900
+            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900" 
+            placeholder="https://..." 
           />
         </div>
 
-        {/* Deskripsi */}
+        {/* Link Gambar */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Sinopsis / Deskripsi</label>
+          <label htmlFor="image_url" className="block text-sm font-medium text-gray-700 mb-1">Link Gambar Cover</label>
+          <input 
+            id="image_url"
+            name="image_url" 
+            type="url" 
+            onChange={handleChange} 
+            // Tambahkan text-gray-900
+            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900" 
+          />
+        </div>
+
+        {/* Sinopsis */}
+        <div>
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">Sinopsis</label>
           <textarea 
+            id="description"
             name="description" 
             rows={4} 
             onChange={handleChange} 
-            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-800" 
-            placeholder="Tulis ringkasan buku di sini..."
+            // Tambahkan text-gray-900
+            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
           ></textarea>
         </div>
 
-        {/* Tombol Submit */}
         <button 
           type="submit" 
-          disabled={loading}
-          className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold text-lg shadow-md hover:bg-blue-700 transition flex justify-center items-center gap-2 mt-4 active:scale-95 disabled:bg-blue-300"
+          disabled={loading} 
+          className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold mt-4 shadow-md flex justify-center gap-2 hover:bg-blue-700 transition disabled:bg-blue-300"
         >
           {loading ? 'Menyimpan...' : <><Save size={20} /> Simpan Buku</>}
         </button>

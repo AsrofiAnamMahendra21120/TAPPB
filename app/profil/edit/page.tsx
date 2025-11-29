@@ -87,11 +87,12 @@ export default function EditProfilPage() {
         <div>
           <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
           <input 
-            id="full_name" // ID harus sama dengan htmlFor
+            id="full_name"
             name="full_name" 
             value={formData.full_name} 
             onChange={handleChange} 
-            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" 
+            // Tambahkan text-gray-900 di sini
+            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900" 
           />
         </div>
 
@@ -103,7 +104,8 @@ export default function EditProfilPage() {
              name="email" 
              value={formData.email} 
              onChange={handleChange} 
-             className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" 
+             // Tambahkan text-gray-900 di sini
+             className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900" 
            />
         </div>
 
@@ -115,7 +117,8 @@ export default function EditProfilPage() {
             name="phone" 
             value={formData.phone} 
             onChange={handleChange} 
-            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" 
+            // Tambahkan text-gray-900 di sini
+            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900" 
           />
         </div>
 
@@ -128,7 +131,8 @@ export default function EditProfilPage() {
             rows={3} 
             value={formData.bio} 
             onChange={handleChange} 
-            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+            // Tambahkan text-gray-900 di sini
+            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
           ></textarea>
         </div>
 

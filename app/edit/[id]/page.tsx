@@ -17,13 +17,13 @@ export default function EditBukuPage() {
     category: 'Umum',
     rating: 0,
     image_url: '',
+    read_url: '',
     description: '',
   });
 
   useEffect(() => {
     async function fetchData() {
       if (!params.id) return;
-      
       try {
         const res = await fetch(`/api/books/${params.id}`);
         if (!res.ok) throw new Error('Gagal mengambil data');
@@ -37,6 +37,7 @@ export default function EditBukuPage() {
             category: data.category || 'Umum',
             rating: data.rating || 0,
             image_url: data.image_url || '',
+            read_url: data.read_url || '',
             description: data.description || '',
           });
         }
@@ -47,7 +48,6 @@ export default function EditBukuPage() {
         setLoading(false);
       }
     }
-    
     fetchData();
   }, [params.id, router]);
 
@@ -80,32 +80,27 @@ export default function EditBukuPage() {
     }
   };
 
-  if (loading) {
-    return <div className="min-h-screen flex items-center justify-center bg-gray-50 text-gray-500">Memuat data...</div>;
-  }
+  if (loading) return <div className="min-h-screen flex items-center justify-center text-gray-500">Memuat...</div>;
 
   return (
     <div className="min-h-screen bg-gray-50 pb-24">
-      {/* Header */}
       <div className="bg-blue-600 p-4 text-white flex items-center gap-3 shadow-md sticky top-0 z-10">
-        <button onClick={() => router.back()} aria-label="Kembali">
-          <ArrowLeft size={24} />
-        </button>
+        <button onClick={() => router.back()} aria-label="Kembali"><ArrowLeft size={24} /></button>
         <h1 className="text-lg font-bold">Edit Buku</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="p-5 space-y-4">
         
-        {/* Judul Buku */}
+        {/* Judul */}
         <div>
           <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">Judul Buku</label>
           <input 
-            id="title" // ID ini menyambung ke htmlFor di atas
+            id="title" 
             required 
             name="title" 
             value={formData.title} 
             onChange={handleChange} 
-            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-800" 
+            className="w-full p-3 border border-gray-300 rounded-xl text-gray-900" 
           />
         </div>
 
@@ -114,22 +109,22 @@ export default function EditBukuPage() {
           <div>
             <label htmlFor="author" className="block text-sm font-medium text-gray-700 mb-1">Penulis</label>
             <input 
-              id="author"
+              id="author" 
               required 
               name="author" 
               value={formData.author} 
               onChange={handleChange} 
-              className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-800" 
+              className="w-full p-3 border border-gray-300 rounded-xl text-gray-900" 
             />
           </div>
           <div>
             <label htmlFor="publisher" className="block text-sm font-medium text-gray-700 mb-1">Penerbit</label>
             <input 
-              id="publisher"
+              id="publisher" 
               name="publisher" 
               value={formData.publisher} 
               onChange={handleChange} 
-              className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-800" 
+              className="w-full p-3 border border-gray-300 rounded-xl text-gray-900" 
             />
           </div>
         </div>
@@ -139,11 +134,11 @@ export default function EditBukuPage() {
           <div>
             <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
             <select 
-              id="category"
+              id="category" 
               name="category" 
               value={formData.category} 
               onChange={handleChange} 
-              className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-800"
+              className="w-full p-3 border border-gray-300 rounded-xl bg-white text-gray-900"
             >
               <option value="Umum">Umum</option>
               <option value="Fiksi">Fiksi</option>
@@ -155,51 +150,61 @@ export default function EditBukuPage() {
           </div>
           <div>
             <label htmlFor="rating" className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+            {/* SAYA SUDAH UBAH DI SINI JADI text-gray-900 */}
             <input 
-              id="rating"
+              id="rating" 
               name="rating" 
               type="number" 
               step="0.1" 
-              max="5" 
-              min="0" 
               value={formData.rating} 
               onChange={handleChange} 
-              className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-800" 
+              className="w-full p-3 border border-gray-300 rounded-xl text-gray-900" 
             />
           </div>
         </div>
 
+        {/* Link Baca */}
+        <div>
+          <label htmlFor="read_url" className="block text-sm font-medium text-gray-700 mb-1">Link Baca (PDF/Drive)</label>
+          <input 
+            id="read_url"
+            name="read_url" 
+            type="url"
+            value={formData.read_url} 
+            onChange={handleChange} 
+            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 text-gray-900" 
+            placeholder="https://..."
+          />
+        </div>
+
         {/* URL Gambar */}
         <div>
-          <label htmlFor="image_url" className="block text-sm font-medium text-gray-700 mb-1">Link Gambar (URL)</label>
+          <label htmlFor="image_url" className="block text-sm font-medium text-gray-700 mb-1">Link Gambar</label>
+          {/* SAYA SUDAH UBAH DI SINI JADI text-gray-900 */}
           <input 
-            id="image_url"
+            id="image_url" 
             name="image_url" 
             value={formData.image_url} 
             onChange={handleChange} 
-            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-800" 
+            className="w-full p-3 border border-gray-300 rounded-xl text-gray-900" 
           />
         </div>
 
         {/* Deskripsi */}
         <div>
           <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">Sinopsis</label>
+          {/* SAYA SUDAH UBAH DI SINI JADI text-gray-900 */}
           <textarea 
-            id="description"
+            id="description" 
             name="description" 
             rows={5} 
             value={formData.description} 
             onChange={handleChange} 
-            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-800"
+            className="w-full p-3 border border-gray-300 rounded-xl text-gray-900"
           ></textarea>
         </div>
 
-        {/* Tombol Simpan */}
-        <button 
-          type="submit" 
-          disabled={saving} 
-          className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold mt-4 shadow-md hover:bg-blue-700 transition flex justify-center items-center gap-2 disabled:bg-blue-300"
-        >
+        <button type="submit" disabled={saving} className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold mt-4 shadow-md flex justify-center gap-2">
           {saving ? 'Menyimpan...' : <><Save size={20} /> Simpan Perubahan</>}
         </button>
       </form>
